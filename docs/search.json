@@ -2,9 +2,9 @@
   {
     "objectID": "graphic_resume.html",
     "href": "graphic_resume.html",
-    "title": "Vinson Ciawandy",
+    "title": "Graphic Resume",
     "section": "",
-    "text": "Resume\nMy resume but in diagrams and more fun to look at"
+    "text": "Resume present life as segmented and linear, but life itself is multi-dimensional."
   },
   {
     "objectID": "about.html",
@@ -19,5 +19,26 @@
     "title": "personal_website",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Vinson Ciawandy",
+    "section": "",
+    "text": "Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana."
+  },
+  {
+    "objectID": "resume.html#education",
+    "href": "resume.html#education",
+    "title": "Vinson Ciawandy",
+    "section": "Education",
+    "text": "Education\nUniversity of California, San Diego | San Diego, CA\nPhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA\nB.A in Economics | Sept 2007 - June 2011"
+  },
+  {
+    "objectID": "resume.html#experience",
+    "href": "resume.html#experience",
+    "title": "Vinson Ciawandy",
+    "section": "Experience",
+    "text": "Experience\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Spet 2012 - April 2018"
   }
 ]

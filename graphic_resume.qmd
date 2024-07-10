@@ -1,19 +1,7 @@
-
 ---
-title: "Vinson Ciawandy"
-about:
-  template: trestles
-  image: asset/aboutme_photo.jpg
-  image-width: 10em 
-  links:
-    - icon: email
-      text: Email
-      href: vinsonciawandy@gmail.com
-    - icon: linkedin
-      text: LinkedIn
-      href: https://www.linkedin.com/in/vinsonciawandy
+title: "Graphic Resume"
 ---
 
-Resume
+Resume present life as segmented and linear, but life itself is multi-dimensional. 
 
-My resume but in diagrams and more fun to look at
+![](asset/LifeDiary.drawio.svg)
