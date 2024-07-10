@@ -1,0 +1,19 @@
+
+---
+title: "Vinson Ciawandy"
+about:
+  template: trestles
+  image: asset/aboutme_photo.jpg
+  image-width: 10em 
+  links:
+    - icon: email
+      text: Email
+      href: vinsonciawandy@gmail.com
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/vinsonciawandy
+---
+
+Resume
+
+My resume but in diagrams and more fun to look at
