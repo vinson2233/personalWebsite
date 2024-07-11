@@ -3,20 +3,21 @@ project:
   output-dir: docs
 
 website:
-  title: "personal_website"
+  title: "Blog"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
       - text : About me
         menu: 
-          - resume.qmd
-          - graphic_resume.qmd
+          - href: resume.qmd
+            text: "Resume" 
+          - href: graphic_resume.qmd
+            text: "Visual Resume"
   reader-mode: true
 format:
   html:
-    theme: cosmo
+    theme: sandstone
     css: styles.css
     toc: true
 

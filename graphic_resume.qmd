@@ -1,5 +1,5 @@
 ---
-title: "Graphic Resume"
+title: "Visual Resume"
 ---
 
 Resume present life as segmented and linear, but life itself is multi-dimensional. 

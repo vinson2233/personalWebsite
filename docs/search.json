@@ -2,7 +2,7 @@
   {
     "objectID": "graphic_resume.html",
     "href": "graphic_resume.html",
-    "title": "Graphic Resume",
+    "title": "Visual Resume",
     "section": "",
     "text": "Resume present life as segmented and linear, but life itself is multi-dimensional."
   },
@@ -16,29 +16,113 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "personal_website",
+    "title": "Vinson2233’s blog",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "1 + 1\n\n[1] 2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSklearn vs Numpy vs Numba\n\n\n\n\n\nIt turns out that Sklearn quite slow for several task, can we make things better with Numba, or even just Numpy ?\n\n\n\n\n\nFeb 27, 2021\n\n\nVinson Ciawandy\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resume.html",
     "href": "resume.html",
     "title": "Vinson Ciawandy",
     "section": "",
-    "text": "Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana."
+    "text": "I was born and raised in Indonesia. Trying to expand my horizon and want to see how statistics can be used to help people. Please check my Linkedin to know me better."
   },
   {
     "objectID": "resume.html#education",
     "href": "resume.html#education",
     "title": "Vinson Ciawandy",
     "section": "Education",
-    "text": "Education\nUniversity of California, San Diego | San Diego, CA\nPhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA\nB.A in Economics | Sept 2007 - June 2011"
+    "text": "Education\n\nLeiden University, Netherlands  Sep 2023 - Aug 2025 \n\n MSc in Statistics and Data ScienceAverage Grade: 8.82 / 10 Focus area : Official Statistics\n\nInstitut Teknologi Bandung, Indonesia  Aug 2016 - Oct 2020 \n\n Bsc in Mathematics GPA : 3.62 / 4 Focus area : Statistics"
   },
   {
     "objectID": "resume.html#experience",
     "href": "resume.html#experience",
     "title": "Vinson Ciawandy",
     "section": "Experience",
-    "text": "Experience\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Spet 2012 - April 2018"
+    "text": "Experience\n\nTokopedia, Indonesia  Mar 2022 - Jul 2023 \n\n Senior Data Scientist Project : Supply chain, Time series forecasting Remarks : Double grade promotion, Growth Mindset award \n\nTokopedia, Indonesia  Feb 2021 - Mar 2022 \n\n Data Scientist Project : Computer Vision, Visual-Language Embedding \n\nGrowia, Indonesia  Feb 2023 - Aug 2023 \n\n Data Analyst Instructor \n\nDibimbing, Indonesia  Jul 2021 - Mar 2022 \n\n Data Science Instructor \n\nMandala Multifinance, Indonesia  Jun 2020 - Jan 2021 \n\n Data Scientist  Project : Credit Scoring \n\nPurple Analytics, Indonesia  Jun 2019 - Aug 2019 \n\n Data Analyst Internship  Project : Recommendation System \n\nTelkom, Indonesia  Jun 2018 - Aug 2018 \n\n Data Science Internship  Project : Dashboard"
+  },
+  {
+    "objectID": "posts/aaa.html",
+    "href": "posts/aaa.html",
+    "title": "My Post",
+    "section": "",
+    "text": "Original Photo by nappy from Pexels\nWelcome to my first blog. Recently I started to develop my package, and my priorities are maximizing speed. I found many things in Sklearn that works quite slow. This is not a blog about tutorial using Sklearn, NumPy or Numba but this blog serves purpose for speed comparison across several libraries.\ntldr, just skip to the conclusion part\nHere’s my machine spec :\nMy software :\nFor evaluation, i use magic function %timeit and %memit to measure runtime speed and the memory taken by the process. %timeit work out of the box, but for using memit, we need to install memory_profiler and load it first."
+  },
+  {
+    "objectID": "posts/aaa.html#logloss-calculation",
+    "href": "posts/aaa.html#logloss-calculation",
+    "title": "My Post",
+    "section": "1.1 Logloss calculation",
+    "text": "1.1 Logloss calculation\nfrom sklearn.metrics import log_loss as logloss_sklearn\n \ndef logloss_numpy(actual,pred):\n     return -1*np.mean(actual*np.log(pred) + (1-actual)*np.log(1-pred))\n \nfrom numba import jit\n@jit(nopython=True)\ndef logloss_numba(actual,pred):\n     logloss = 0\n     for i in range(actual.shape[0]):  \n         logloss += actual[i]*np.log(pred[i]) + (1-actual[i])*np.log(1-pred[i])\n     return -1*logloss/actual.shape[0]\n%timeit logloss_sklearn(actual,pred)\n%timeit logloss_numpy(actual,pred)\n%timeit logloss_numba(actual,pred)\n \n%memit logloss_sklearn(actual,pred)\n%memit logloss_numpy(actual,pred)\n%memit logloss_numba(actual,pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n227 ms ± 7.52 ms\npeak : 260.78 MiB, increment: 41.03 MiB\n\n\nNumpy\n36.8 ms ± 1.25 ms\npeak : 244.09 MiB, increment: 23.61 MiB\n\n\nNumba\n16.9 ms ± 1.32 ms\npeak : 220.52 MiB, increment: 0.01 MiB"
+  },
+  {
+    "objectID": "posts/aaa.html#confusion-matrix",
+    "href": "posts/aaa.html#confusion-matrix",
+    "title": "My Post",
+    "section": "1.2 Confusion Matrix",
+    "text": "1.2 Confusion Matrix\nThe following code cited from this stackoverflow\nfrom sklearn.metrics import confusion_matrix as CM_sklearn\n \n@jit(nopython=True)\ndef CM_numba(true, pred):\n    #by cgnorthcutt\n    K = len(np.unique(true))\n    result = np.zeros((K, K))\n    for i in range(len(true)):\n        result[true[i]][pred[i]] += 1\n    return result\n \ndef CM_numpy(true,pred):\n    #by rytido\n    classes = len(np.unique(true))\n    return np.bincount(true * classes + pred).reshape((classes, classes))\n%timeit CM_sklearn(actual,pred_class)\n%timeit CM_numpy(actual,pred_class)\n%timeit CM_numba(actual,pred_class)\n \n%memit CM_sklearn(actual,pred_class)\n%memit CM_numpy(actual,pred_class)\n%memit CM_numba(actual,pred_class)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n888 ms ± 27.2 ms\npeak : 248.26 MiB, increment: 18.79 MiB\n\n\nNumpy\n27.5 ms ± 1.61 ms\npeak : 240.56 MiB, increment: 12.42 MiB\n\n\nNumba\n34.3 ms ± 1.58 ms\npeak : 232.95 MiB, increment: 3.83 MiB"
+  },
+  {
+    "objectID": "posts/aaa.html#roc-auc-score",
+    "href": "posts/aaa.html#roc-auc-score",
+    "title": "My Post",
+    "section": "1.3 ROC-AUC score",
+    "text": "1.3 ROC-AUC score\nThe code cited from https://www.kaggle.com/c/microsoft-malware-prediction/discussion/76013\nfrom sklearn.metrics import roc_auc_score as rocauc_sklearn\n \ndef rocauc_numpy(y_true, y_prob):\n    #This function basically same with rocauc_numba\n    #I want to see if numpy natural vectorization is faster than numba\n    y_true = np.asarray(y_true, dtype=np.float64)\n    y_true = y_true[np.argsort(y_prob)]\n    n = len(y_true)\n    nfalse = (1-y_true).cumsum()\n    auc = (y_true*nfalse).sum()\n    last_nfalse = nfalse[-1]\n    auc /= (last_nfalse* (n - last_nfalse))\n    return auc\n \nfrom numba import jit\n@jit(nopython=True)\ndef rocauc_numba(y_true, y_prob):\n    y_true = np.asarray(y_true)\n    y_true = y_true[np.argsort(y_prob)]\n    nfalse = 0\n    auc = 0\n    n = len(y_true)\n    for i in range(n):\n        y_i = y_true[i]\n        nfalse += (1 - y_i)\n        auc += y_i * nfalse\n    auc /= (nfalse * (n - nfalse))\n    return auc\n%timeit rocauc_sklearn(actual,pred)\n%timeit rocauc_numpy(actual, pred)\n%timeit rocauc_numba(actual, pred)\n \n%memit rocauc_sklearn(actual,pred)\n%memit rocauc_numpy(actual, pred)\n%memit rocauc_numba(actual, pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n752 ms ± 33.4 ms\npeak : 298.05 MiB, increment: 46.12 MiB\n\n\nNumpy\n282 ms ± 25.4 ms\npeak : 258.04 MiB, increment: 15.32 MiB\n\n\nNumba\n358 ms ± 42.7 ms\npeak : 250.51 MiB, increment: 7.72 MiB"
+  },
+  {
+    "objectID": "posts/aaa.html#root-mean-squared-error",
+    "href": "posts/aaa.html#root-mean-squared-error",
+    "title": "My Post",
+    "section": "2.1 Root Mean Squared Error",
+    "text": "2.1 Root Mean Squared Error\nfrom sklearn.metrics import mean_squared_error as RMSE_sklearn\n \n@jit(nopython=True)\ndef RMSE_numba(actual,pred):\n    Squared_Error = 0\n    for i in range(actual.shape[0]):  \n        Squared_Error += (actual[i]-pred[i])**2\n    return (Squared_Error/actual.shape[0])**0.5     \n \ndef RMSE_numpy(actual,pred):\n    return np.sqrt(np.mean((actual-pred)**2))\n%timeit RMSE_sklearn(actual,pred,squared=False)\n%timeit RMSE_numpy(actual,pred)\n%timeit RMSE_numba(actual,pred)\n \n%memit RMSE_sklearn(actual,pred,squared=False)\n%memit RMSE_numpy(actual,pred)\n%memit RMSE_numba(actual,pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n10.8 ms ± 533 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumpy\n8.9 ms ± 491 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumba\n1.06 ms ± 35.7 µs\npeak : 250.05 MiB, increment: 0.00 MiB"
+  },
+  {
+    "objectID": "posts/aaa.html#r-squared",
+    "href": "posts/aaa.html#r-squared",
+    "title": "My Post",
+    "section": "2.2 R-Squared",
+    "text": "2.2 R-Squared\nfrom sklearn.metrics import r2_score as R2_sklearn\n \ndef R2_numpy(actual,pred):\n    avg = actual.mean()\n    SSE = ((pred-actual)**2).sum()\n    SST = ((actual-avg)**2).sum()\n    return 1-SSE/SST\n \n@jit\ndef R2_numba(actual,pred):\n    avg = 0\n    len_array = actual.shape[0]\n    for i in range(len_array):\n        avg += actual[i]\n    avg /= len_array\n     \n    SSE = 0\n    SST = 0\n    for i in range(len_array) :\n        SSE += (pred[i]-actual[i])**2\n        SST += (actual[i]-avg)**2\n    return 1-SSE/SST\n%timeit R2_sklearn(actual,pred)\n%timeit R2_numpy(actual,pred)\n%timeit R2_numba(actual,pred)\n \n%memit R2_sklearn(actual,pred)\n%memit R2_numpy(actual,pred)\n%memit R2_numba(actual,pred)\nMethod Time Memory Usage Sklearn 27.7 ms ± 1.59 ms peak : 480.68 MiB, increment: 7.63 MiB Numpy 17.7 ms ± 803 µs peak : 488.31 MiB, increment: 15.27 MiB Numba 1.42 ms ± 46.8 µs peak : 473.05 MiB, increment: 0.00 MiB\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n27.7 ms ± 1.59 ms\npeak : 480.68 MiB, increment: 7.63 MiB\n\n\nNumpy\n17.7 ms ± 803 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumba\n1.42 ms ± 46.8 µs\npeak : 473.05 MiB, increment: 0.00 MiB"
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "",
+    "text": "Original Photo by nappy from Pexels\nWelcome to my first blog. Recently I started to develop my package, and my priorities are maximizing speed. I found many things in Sklearn that works quite slow. This is not a blog about tutorial using Sklearn, NumPy or Numba but this blog serves purpose for speed comparison across several libraries.\ntldr, just skip to the conclusion part\nHere’s my machine spec :\nMy software :\nFor evaluation, i use magic function %timeit and %memit to measure runtime speed and the memory taken by the process. %timeit work out of the box, but for using memit, we need to install memory_profiler and load it first."
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#logloss-calculation",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#logloss-calculation",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "1.1 Logloss calculation",
+    "text": "1.1 Logloss calculation\nfrom sklearn.metrics import log_loss as logloss_sklearn\n \ndef logloss_numpy(actual,pred):\n     return -1*np.mean(actual*np.log(pred) + (1-actual)*np.log(1-pred))\n \nfrom numba import jit\n@jit(nopython=True)\ndef logloss_numba(actual,pred):\n     logloss = 0\n     for i in range(actual.shape[0]):  \n         logloss += actual[i]*np.log(pred[i]) + (1-actual[i])*np.log(1-pred[i])\n     return -1*logloss/actual.shape[0]\n%timeit logloss_sklearn(actual,pred)\n%timeit logloss_numpy(actual,pred)\n%timeit logloss_numba(actual,pred)\n \n%memit logloss_sklearn(actual,pred)\n%memit logloss_numpy(actual,pred)\n%memit logloss_numba(actual,pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n227 ms ± 7.52 ms\npeak : 260.78 MiB, increment: 41.03 MiB\n\n\nNumpy\n36.8 ms ± 1.25 ms\npeak : 244.09 MiB, increment: 23.61 MiB\n\n\nNumba\n16.9 ms ± 1.32 ms\npeak : 220.52 MiB, increment: 0.01 MiB"
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#confusion-matrix",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#confusion-matrix",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "1.2 Confusion Matrix",
+    "text": "1.2 Confusion Matrix\nThe following code cited from this stackoverflow\nfrom sklearn.metrics import confusion_matrix as CM_sklearn\n \n@jit(nopython=True)\ndef CM_numba(true, pred):\n    #by cgnorthcutt\n    K = len(np.unique(true))\n    result = np.zeros((K, K))\n    for i in range(len(true)):\n        result[true[i]][pred[i]] += 1\n    return result\n \ndef CM_numpy(true,pred):\n    #by rytido\n    classes = len(np.unique(true))\n    return np.bincount(true * classes + pred).reshape((classes, classes))\n%timeit CM_sklearn(actual,pred_class)\n%timeit CM_numpy(actual,pred_class)\n%timeit CM_numba(actual,pred_class)\n \n%memit CM_sklearn(actual,pred_class)\n%memit CM_numpy(actual,pred_class)\n%memit CM_numba(actual,pred_class)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n888 ms ± 27.2 ms\npeak : 248.26 MiB, increment: 18.79 MiB\n\n\nNumpy\n27.5 ms ± 1.61 ms\npeak : 240.56 MiB, increment: 12.42 MiB\n\n\nNumba\n34.3 ms ± 1.58 ms\npeak : 232.95 MiB, increment: 3.83 MiB"
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#roc-auc-score",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#roc-auc-score",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "1.3 ROC-AUC score",
+    "text": "1.3 ROC-AUC score\nThe code cited from https://www.kaggle.com/c/microsoft-malware-prediction/discussion/76013\nfrom sklearn.metrics import roc_auc_score as rocauc_sklearn\n \ndef rocauc_numpy(y_true, y_prob):\n    #This function basically same with rocauc_numba\n    #I want to see if numpy natural vectorization is faster than numba\n    y_true = np.asarray(y_true, dtype=np.float64)\n    y_true = y_true[np.argsort(y_prob)]\n    n = len(y_true)\n    nfalse = (1-y_true).cumsum()\n    auc = (y_true*nfalse).sum()\n    last_nfalse = nfalse[-1]\n    auc /= (last_nfalse* (n - last_nfalse))\n    return auc\n \nfrom numba import jit\n@jit(nopython=True)\ndef rocauc_numba(y_true, y_prob):\n    y_true = np.asarray(y_true)\n    y_true = y_true[np.argsort(y_prob)]\n    nfalse = 0\n    auc = 0\n    n = len(y_true)\n    for i in range(n):\n        y_i = y_true[i]\n        nfalse += (1 - y_i)\n        auc += y_i * nfalse\n    auc /= (nfalse * (n - nfalse))\n    return auc\n%timeit rocauc_sklearn(actual,pred)\n%timeit rocauc_numpy(actual, pred)\n%timeit rocauc_numba(actual, pred)\n \n%memit rocauc_sklearn(actual,pred)\n%memit rocauc_numpy(actual, pred)\n%memit rocauc_numba(actual, pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n752 ms ± 33.4 ms\npeak : 298.05 MiB, increment: 46.12 MiB\n\n\nNumpy\n282 ms ± 25.4 ms\npeak : 258.04 MiB, increment: 15.32 MiB\n\n\nNumba\n358 ms ± 42.7 ms\npeak : 250.51 MiB, increment: 7.72 MiB"
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#root-mean-squared-error",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#root-mean-squared-error",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "2.1 Root Mean Squared Error",
+    "text": "2.1 Root Mean Squared Error\nfrom sklearn.metrics import mean_squared_error as RMSE_sklearn\n \n@jit(nopython=True)\ndef RMSE_numba(actual,pred):\n    Squared_Error = 0\n    for i in range(actual.shape[0]):  \n        Squared_Error += (actual[i]-pred[i])**2\n    return (Squared_Error/actual.shape[0])**0.5     \n \ndef RMSE_numpy(actual,pred):\n    return np.sqrt(np.mean((actual-pred)**2))\n%timeit RMSE_sklearn(actual,pred,squared=False)\n%timeit RMSE_numpy(actual,pred)\n%timeit RMSE_numba(actual,pred)\n \n%memit RMSE_sklearn(actual,pred,squared=False)\n%memit RMSE_numpy(actual,pred)\n%memit RMSE_numba(actual,pred)\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n10.8 ms ± 533 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumpy\n8.9 ms ± 491 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumba\n1.06 ms ± 35.7 µs\npeak : 250.05 MiB, increment: 0.00 MiB"
+  },
+  {
+    "objectID": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#r-squared",
+    "href": "posts/sklearn-vs-numpy-vs-numba-speed-comparison.html#r-squared",
+    "title": "Sklearn vs Numpy vs Numba",
+    "section": "2.2 R-Squared",
+    "text": "2.2 R-Squared\nfrom sklearn.metrics import r2_score as R2_sklearn\n \ndef R2_numpy(actual,pred):\n    avg = actual.mean()\n    SSE = ((pred-actual)**2).sum()\n    SST = ((actual-avg)**2).sum()\n    return 1-SSE/SST\n \n@jit\ndef R2_numba(actual,pred):\n    avg = 0\n    len_array = actual.shape[0]\n    for i in range(len_array):\n        avg += actual[i]\n    avg /= len_array\n     \n    SSE = 0\n    SST = 0\n    for i in range(len_array) :\n        SSE += (pred[i]-actual[i])**2\n        SST += (actual[i]-avg)**2\n    return 1-SSE/SST\n%timeit R2_sklearn(actual,pred)\n%timeit R2_numpy(actual,pred)\n%timeit R2_numba(actual,pred)\n \n%memit R2_sklearn(actual,pred)\n%memit R2_numpy(actual,pred)\n%memit R2_numba(actual,pred)\nMethod Time Memory Usage Sklearn 27.7 ms ± 1.59 ms peak : 480.68 MiB, increment: 7.63 MiB Numpy 17.7 ms ± 803 µs peak : 488.31 MiB, increment: 15.27 MiB Numba 1.42 ms ± 46.8 µs peak : 473.05 MiB, increment: 0.00 MiB\n\n\n\n\n\n\n\n\nMethod\nTime\nMemory Usage\n\n\n\n\nSklearn\n27.7 ms ± 1.59 ms\npeak : 480.68 MiB, increment: 7.63 MiB\n\n\nNumpy\n17.7 ms ± 803 µs\npeak : 488.31 MiB, increment: 15.27 MiB\n\n\nNumba\n1.42 ms ± 46.8 µs\npeak : 473.05 MiB, increment: 0.00 MiB"
   }
 ]
